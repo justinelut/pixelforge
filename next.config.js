@@ -8,6 +8,7 @@ module.exports = {
   images: {
     domains: [
       'localhost',
+      'fusion.verixr.com'
       // Your domain(s) here
     ],
     deviceSizes: sizes,
