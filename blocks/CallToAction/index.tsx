@@ -133,14 +133,11 @@ export const Component: React.FC<Type> = (props) => {
           {buttons.map((button, i) => (
             <li key={i}>
               {button.type === 'page' && (
-                <Link
-                  href="[...slug]"
-                  as={`/${button.page.slug}`}
-                >
-                  <a className={classes.button}>
-                    {button.label}
-                  </a>
-                </Link>
+                (<Link href="[...slug]" as={`/${button.page.slug}`} className={classes.button}>
+
+                  {button.label}
+
+                </Link>)
               )}
               {button.type === 'custom' && (
                 <a
