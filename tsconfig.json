@@ -17,13 +17,19 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "blocks/Image/sizes.js"
+    "blocks/Image/sizes.js",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
