@@ -22,15 +22,21 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "blocks/Image/sizes.js",
-    ".next/types/**/*.ts"
-  ],
+    ".next/types/**/*.ts",
+    "fields/slug.js",
+    "app/layout.js",
+    "access/isAdmin.js",
+    "utilities/formatSlug.ts",
+    "payload.config.js"
+, "server/index.js"  ],
   "exclude": [
     "node_modules"
   ]

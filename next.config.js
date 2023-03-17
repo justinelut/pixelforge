@@ -11,7 +11,9 @@ module.exports = {
   images: {
     domains: [
       "localhost",
-      "fusion.verixr.com",
+      "pixelabs.verixr.com",
+      "justinedev.verixr.com",
+      "via.placeholder.com"
       // Your domain(s) here
     ],
     deviceSizes: sizes,

@@ -1,0 +1,6 @@
+--2023-03-05 10:27:39--  https://files.gumroad.com/attachments/9802228539192/00f5723778d4400692c65e72c3fd22bb/original/startuptemplate-main.zip?response-content-disposition=attachment
+Resolving files.gumroad.com (files.gumroad.com)... 104.16.192.25, 104.16.193.25, 2606:4700::6810:c119, ...
+Connecting to files.gumroad.com (files.gumroad.com)|104.16.192.25|:443... connected.
+HTTP request sent, awaiting response... 500 Internal Server Error
+2023-03-05 10:27:40 ERROR 500: Internal Server Error.
+
