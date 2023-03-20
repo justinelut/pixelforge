@@ -2,9 +2,11 @@
 
 import Image from 'next/image';
 import { useRef } from 'react'
+import { useStore } from "../store/store";
 
 
 const Navbar = () => {
+    const { firstName, loginToken } = useStore()
     const showMenu = useRef(null);
 
     function handleClick() {
@@ -12,6 +14,11 @@ const Navbar = () => {
     }
     function closeMenu() {
         showMenu.current.classList.add("hidden");
+    }
+
+    const logout = () =>{
+        useStore.persist.clearStorage()
+        window.location.reload();
     }
     return (
         <>
@@ -33,10 +40,10 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <div className="font-montserrat hidden md:block">
-                    <button className="mr-6">Login</button>
-                    <button className="py-2 px-4 text-white bg-black rounded-3xl">
-                        Signup
-                    </button>
+                    <button className="mr-6">{firstName && firstName ? "Hello " + firstName : "Login"}</button>
+
+                    {loginToken && loginToken ? (<button onClick={logout} className="py-2 px-4 text-white bg-black rounded-3xl">Logout</button>) : (<button className="py-2 px-4 text-white bg-black rounded-3xl">Signup</button>)}
+
                 </div>
                 <div id="showMenu" onClick={handleClick} className="md:hidden">
 

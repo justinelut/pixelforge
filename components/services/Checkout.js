@@ -6,16 +6,18 @@ import Payment from "./Payment"
 
 export default function Checkout() {
     const [showLogin, setShowLogin] = useState(true);
-    const {loginToken} = useStore()
+    const {loginToken, SingleService} = useStore()
 
     const handleLinkClick = (e) => {
         e.preventDefault()
         setShowLogin(!showLogin);
     };
 
+
+
     return (
         <section className="pt-24 md:mt-0 md:h-screen md:text-left bg-secondary">
-         
+         {SingleService && console.log(SingleService)}
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
                 <div className="flex flex-col justify-between lg:flex-row">
                     <div className="mb-12 lg:max-w-lg lg:pr-5 lg:mb-0">

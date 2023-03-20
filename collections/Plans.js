@@ -1,7 +1,7 @@
 const Plans = {
   slug: "plans",
   admin: {
-    useAsTitle: "name",
+    useAsTitle: "title",
   },
   
   access: {
