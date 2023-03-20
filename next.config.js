@@ -13,8 +13,8 @@ module.exports = {
       "localhost",
       "pixelabs.verixr.com",
       "justinedev.verixr.com",
-      "via.placeholder.com"
-      // Your domain(s) here
+      "via.placeholder.com",
+      "images.unsplash.com"
     ],
     deviceSizes: sizes,
   },

@@ -15,4 +15,5 @@ import Featured from './Featured'
 import { serverClient } from './graphql/serverProvider'
 
 
+
 export { serverClient, Navbar, Herosection, Howitworks, Features, Pricing, Faq, Footer, Content, Plans, Checkout, Signup, Login, Notfound, Featured }
