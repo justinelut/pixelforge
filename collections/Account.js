@@ -46,7 +46,7 @@ const Account = {
       // saveToJWT: true,
       type: "select",
       hasMany: true,
-      defaultValue: ["editor"],
+      defaultValue: ["client"],
       access: {
         // Only admins can create or update a value for this field
         create: isAdminFieldLevel,
@@ -58,8 +58,8 @@ const Account = {
           value: "admin",
         },
         {
-          label: "Editor",
-          value: "editor",
+          label: "Client",
+          value: "client",
         },
       ],
     },

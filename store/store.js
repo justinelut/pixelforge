@@ -9,6 +9,9 @@ const Store = () => (
         firstName: '',
         lastName: '',
         loginToken: '',
+        purchasedService: '',
+        planType: '',
+        serviceType: '',
     }
 )
 export const useStore = create(

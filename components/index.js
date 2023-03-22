@@ -13,7 +13,31 @@ import Login from './auth/Login'
 import Notfound from './404/404notfound'
 import Featured from './Featured'
 import { serverClient } from './graphql/serverProvider'
+import Main from './Blog/Main'
+import PostDetail from './Blog/Post'
+import Contactus from './contact/Contact'
+import Page from './Pages/Page'
 
 
 
-export { serverClient, Navbar, Herosection, Howitworks, Features, Pricing, Faq, Footer, Content, Plans, Checkout, Signup, Login, Notfound, Featured }
+export { 
+    serverClient, 
+    Navbar, 
+    Herosection, 
+    Howitworks, 
+    Features, 
+    Pricing, 
+    Faq, 
+    Footer, 
+    Content, 
+    Plans, 
+    Checkout, 
+    Signup, 
+    Login, 
+    Notfound, 
+    Featured,
+    Main,
+    PostDetail,
+    Contactus,
+    Page
+ }

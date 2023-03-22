@@ -8,6 +8,11 @@ import Category from './collections/Category'
 import Plans from './collections/Plans'
 import Account from './collections/Account'
 import Home from './collections/Home'
+import Blog from './collections/Blog'
+import Contact from './collections/Contact'
+import Navigation from './collections/Navigation'
+import Page from './collections/Page'
+import Subscriptions from './collections/Subscriptions'
 
 
 dotenv.config();
@@ -20,6 +25,11 @@ export default buildConfig({
   },
   collections: [
     Home,
+    Blog,
+    Contact,
+    Navigation,
+    Page,
+    Subscriptions,
     Media,
     Payments,
     Projects,

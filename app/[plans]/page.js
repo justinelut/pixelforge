@@ -6,11 +6,11 @@ import { SingleService } from '../../components/graphql/query'
 import { serverClient } from '../../components'
 
 export default async function Singleservice({ params }) {
-    const { data } = await serverClient.query({ 
+    const { data } = await serverClient.query({
         query: SingleService,
         fetchPolicy: 'network-only',
-        variables: { slug: params.plans } 
-        })
+        variables: { slug: params.plans }
+    })
 
 
     useStore.setState({ SingleService: data })

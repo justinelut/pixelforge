@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import { useRef } from 'react'
 import { useStore } from "../store/store";
-
+import Link from 'next/link'
+import axios from 'axios'
 
 const Navbar = () => {
     const { firstName, loginToken } = useStore()
@@ -16,8 +17,9 @@ const Navbar = () => {
         showMenu.current.classList.add("hidden");
     }
 
-    const logout = () =>{
+    const logout = async () => {
         useStore.persist.clearStorage()
+        await axios.post("/api/account/logout")
         window.location.reload();
     }
     return (
@@ -28,21 +30,21 @@ const Navbar = () => {
                 </div>
                 <ul className="font-montserrat items-center hidden md:flex">
                     <li className="mx-3">
-                        <a className="growing-underline" href="howitworks">
-                            How it works
-                        </a>
+                        <Link className="growing-underline" href="/blog">
+                           Blog
+                        </Link>
                     </li>
                     <li className="growing-underline mx-3">
-                        <a href="features">Features</a>
+                        <Link href="/contact">Contact us</Link>
                     </li>
                     <li className="growing-underline mx-3">
-                        <a href="pricing">Pricing</a>
+                        {loginToken && <Link href="/admin">Dashboard</Link>}
                     </li>
                 </ul>
                 <div className="font-montserrat hidden md:block">
-                    <button className="mr-6">{firstName && firstName ? "Hello " + firstName : "Login"}</button>
+                    {firstName && firstName ? (<button className="mr-6">{"Hello " + firstName}</button>) : (<Link href="/admin" className="mr-6">Login</Link>)}
 
-                    {loginToken && loginToken ? (<button onClick={logout} className="py-2 px-4 text-white bg-black rounded-3xl">Logout</button>) : (<button className="py-2 px-4 text-white bg-black rounded-3xl">Signup</button>)}
+                    {loginToken && loginToken ? (<button onClick={logout} className="py-2 px-4 text-white bg-black rounded-3xl">Logout</button>) : (<Link href="/signup" className="py-2 px-4 text-white bg-black rounded-3xl">Signup</Link>)}
 
                 </div>
                 <div id="showMenu" onClick={handleClick} className="md:hidden">
@@ -56,13 +58,22 @@ const Navbar = () => {
                 </div>
                 <ul className="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
                     <li className="my-6">
-                        <a href="howitworks">How it works</a>
+                        {firstName && firstName ? (<Link href="/admin/account">{"Hello " + firstName}</Link>) : (<Link href="/login">Login</Link>)}
+                    </li>
+
+                    <li className="my-6">
+                        {loginToken && <Link href="/admin" className="py-2 px-4 text-white bg-black rounded-3xl">Dashboard</Link>}
+                    </li>
+
+                    <li className="my-6">
+                        <Link href="/blog">Blog</Link>
                     </li>
                     <li className="my-6">
-                        <a href="features">Features</a>
+                        <Link href="/contact">Contact us</Link>
                     </li>
+
                     <li className="my-6">
-                        <a href="pricing">Pricing</a>
+                        {loginToken && loginToken ? (<button onClick={logout} className="py-2 px-4 text-white bg-black rounded-3xl">Logout</button>) : (<Link href="/signup" className="py-2 px-4 text-white bg-black rounded-3xl">Signup</Link>)}
                     </li>
                 </ul>
             </div>

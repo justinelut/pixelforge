@@ -27,15 +27,27 @@ export const services = gql`query{
 }`
 
 export const home = gql`query{
-Homes{
-  docs{
-    headline
-    subheadline
-    image{
-      url
+  Homes{
+    docs{
+      headline
+      subheadline
+      image{
+        url
+      }
+      howitworks{
+        title
+        description
+      }
+      features{
+        title
+        description
+      }
+      Faq{
+        question
+        answer
+      }
     }
   }
-}
 }`
 
 
@@ -67,3 +79,16 @@ export const SingleService = gql`query GetServices($slug: String!) {
       }
     }
   }`
+
+export const blogPost = gql`query GetPost($slug: String!) {
+    Blogs(where: { slug: { equals: $slug } }) {
+      docs {
+      updatedAt
+      title
+      content 
+      image{
+        url
+      }
+      }
+      }
+    }`

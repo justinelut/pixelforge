@@ -10,7 +10,7 @@ import { useStore } from '../../store/store';
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [resError, setResError] = useState()
-    const [success, setSuccess] = useState()
+   
 
     const onSubmit = async (data, e) => {
         e.preventDefault()
@@ -69,7 +69,6 @@ export default function Login() {
                 {resError && resError.errors.map(err => (<Error message={err.message} />))}
 
                 <button type="submit" className="bg-white inline-flex justify-center text-green-500 w-full h-12 px-4 py-2 border border-green-500 rounded-none">
-
                     Login
                     <FaMobileAlt className="mr-2 mt-2" />
                 </button>
