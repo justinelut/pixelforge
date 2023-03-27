@@ -1,20 +1,48 @@
 "use client"
 
 import Link from 'next/link'
-import axios from 'axios'
 import useSWR from 'swr'
-
-const fetcher = (path) => axios.get(path).then(res => res)
+import {fetcher} from './api/fetchdata'
+import { useForm } from "react-hook-form";
+import Error from './auth/error'
+import Success from './auth/success'
+import {useState} from 'react'
+import axios from 'axios';
+import { BeatLoading } from './Loader'
 
 export default function Footer(){
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [resError, setResError] = useState()
+    const [success, setSuccess] = useState()   
+
     const { isLoading, data } = useSWR("/api/navigation", fetcher)
+    const onSubmit = async (data, e) => {
+        e.preventDefault()
+        const results = await axios.post("/api/subscription", { email: data.email}).catch((error) => {
+            if (error.response) {
+                setResError(error.response.data);
+            } else if (error.request) {
+                setResError(error.request);
+            } else {
+                setResError('Error', error.message);
+            }
+        })
+        if (results.data.message) {
+            setSuccess(results.data.message)
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000)
+        }
+     };
 
     return (
         <div className="bg-gray-900">
             <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
                 <div className="grid row-gap-10 mb-8 lg:grid-cols-6">
                     <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
-                        {isLoading ? "loading" : (
+                        {isLoading ? (
+                            <BeatLoading />
+                        ) : (
                             <>
                                 {data && data.data.docs.map((nav, key)=>(
 
@@ -81,12 +109,14 @@ export default function Footer(){
                         <span className="text-base font-medium tracking-wide text-gray-300">
                             Subscribe for updates
                         </span>
-                        <form className="flex flex-col mt-4 md:flex-row">
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-4 md:flex-row">
                             <input
                                 placeholder="Email"
-                                required
+                                id="email"
+                                name="email"
                                 type="text"
                                 className="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                                {...register("email", { required: true })}
                             />
                             <button
                                 type="submit"
@@ -95,6 +125,9 @@ export default function Footer(){
                                 Subscribe
                             </button>
                         </form>
+                        {errors.email?.type === 'required' && <p className='text-red-700' role="alert">Email is required</p>}
+                        {resError && resError.errors.map(err => (<Error message={err.message} />))}
+                        {success && <Success message={success} />}
                         <p className="mt-4 text-sm text-gray-500">
                             Stay up-to-date on our latest services and offers. Subscribe now!.
                         </p>

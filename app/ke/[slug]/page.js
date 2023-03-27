@@ -1,7 +1,7 @@
-import {Page} from '../../../components'
-export default function Pages() {
+import { Page } from '../../../components'
+export default function Pages({params}) {
 
     return (
-        <Page />
+        <Page params={params} />
     )
 }

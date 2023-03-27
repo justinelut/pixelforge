@@ -1,4 +1,5 @@
 import { isAdmin } from "../access/isAdmin";
+
 const Subscription = {
     slug: "subscription",
     admin: {

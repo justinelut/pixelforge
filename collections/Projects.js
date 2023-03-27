@@ -1,5 +1,5 @@
 import { isAdmin } from "../access/isAdmin";
-import { isAdminOrSelf } from "../access/isAdminOrSelf";
+import { isAdminOrSelfOthers } from "../access/isAdminOrSelf";
 
 const Projects = {
   slug: "projects",
@@ -7,13 +7,8 @@ const Projects = {
     useAsTitle: "service",
   },
   access: {
-    // Only admins can create
-    create: isAdminOrSelf,
-    // Only admins or editors with site access can read
-    read: isAdminOrSelf,
-    // Only admins can update
+    read: isAdminOrSelfOthers,
     update: isAdmin,
-    // Only admins can delete
     delete: isAdmin,
   },
   fields: [
@@ -59,8 +54,34 @@ const Projects = {
       type: "text",
       required: true,
     },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'account',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: data => Boolean(data?.createdBy)
+      },
+
+    }
 
   ],
+  hooks: {
+    beforeChange: [
+      ({ req, operation, data }) => {
+        if (operation === 'create') {
+          if (req.user) {
+            data.createdBy = req.user.id;
+            return data;
+          }
+        }
+      },
+    ],
+  },
 };
 
 

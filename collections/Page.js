@@ -1,32 +1,33 @@
 import formatSlug from "../utilities/formatSlug";
+import { isAdmin } from "../access/isAdmin";
 const Page = {
     slug: 'page',
     admin: {
-        useAsTitle: "title",
+        useAsTitle: "name",
     },
 
     access: {
         // Only admins can create
-        create: () => true,
+        create: isAdmin,
         // Only admins or editors with site access can read
-        read: () => true,
+        read: isAdmin,
         // Only admins can update
-        update: () => true,
+        update: isAdmin,
         // Only admins can delete
-        delete: () => true,
+        delete: isAdmin,
     },
     fields: [
         {
-            name: 'title',
-            label: 'Title',
+            name: 'name',
+            label: 'Page Name',
             type: 'text',
             required: true,
         },
         {
-            name: 'content', // required
+            name: 'description', // required
             type: 'richText', // required
             defaultValue: [{
-                children: [{ text: 'Here is some default content for this field' }],
+                children: [{ text: 'Start typing ...' }],
             }],
             required: true,
             admin: {
@@ -69,6 +70,75 @@ const Page = {
                 },
             }
         },
+        {
+            name: 'pages', // required
+            type: 'array', // required
+            label: 'Pages',
+            minRows: 2,
+            maxRows: 20,
+            labels: {
+                singular: 'How it Works',
+                plural: 'How it Works',
+            },
+            fields: [ // required
+                {
+                    name: 'title',
+                    type: 'text',
+                },
+                {
+                    name: 'cssid',
+                    type: 'text',
+                },
+                {
+                    name: 'content', // required
+                    type: 'richText', // required
+                    defaultValue: [{
+                        children: [{ text: 'Start typing ...' }],
+                    }],
+                    required: true,
+                    admin: {
+                        elements: [
+                            'h2',
+                            'h3',
+                            'h4',
+                            'link',
+                        ],
+                        leaves: [
+                            'bold',
+                            'italic',
+                            {
+                                name: 'highlight',
+                            }
+                        ],
+                        link: {
+                            // Inject your own fields into the Link element
+                            fields: [
+                                {
+                                    name: 'rel',
+                                    label: 'Rel Attribute',
+                                    type: 'select',
+                                    hasMany: true,
+                                    options: [
+                                        'noopener', 'noreferrer', 'nofollow',
+                                    ],
+                                },
+                            ],
+                        },
+                        upload: {
+                            collections: {
+                                media: {
+                                    fields: [
+                                        // any fields that you would like to save
+                                        // on an upload element in the `media` collection
+                                    ],
+                                },
+                            },
+                        },
+                    }
+                },
+            ],
+        },
+       
          {
             name: 'slug',
             type: 'text',
@@ -77,7 +147,7 @@ const Page = {
             },
             hooks: {
                 beforeValidate: [
-                    formatSlug("title")
+                    formatSlug("name")
                 ]
             },
         }

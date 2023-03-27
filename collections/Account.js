@@ -46,7 +46,7 @@ const Account = {
       // saveToJWT: true,
       type: "select",
       hasMany: true,
-      defaultValue: ["client"],
+      defaultValue: ["user"],
       access: {
         // Only admins can create or update a value for this field
         create: isAdminFieldLevel,
@@ -58,12 +58,38 @@ const Account = {
           value: "admin",
         },
         {
-          label: "Client",
-          value: "client",
+          label: "User",
+          value: "user",
         },
       ],
     },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'account',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: data => Boolean(data?.createdBy)
+      },
+
+    }
   ],
+  hooks: {
+    beforeChange: [
+      ({ req, operation, data }) => {
+        if (operation === 'create') {
+          if (req.user) {
+            data.id = req.user.id;
+            return data;
+          }
+        }
+      },
+    ],
+  },
 };
 
 

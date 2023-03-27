@@ -31,7 +31,7 @@ export default function Contact() {
             setSuccess(results.data.message)
             setTimeout(() => {
                 window.location.reload();
-            }, 10000)
+            }, 60000)
         }
     }
 

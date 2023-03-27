@@ -1,12 +1,13 @@
-import Hero from '../../../components/profiles/Hero'
-import Education from '../../../components/profiles/Education'
+import { AboutMe, EducationSection, Skills } from '../../../components/'
 
-export default function Profile(){
 
-    return(
-       <>
-       <Hero />
-       <Education />
-       </>
+export default function Profile() {
+
+    return (
+        <>
+            <AboutMe />
+            <EducationSection />
+            <Skills />
+        </>
     )
 }

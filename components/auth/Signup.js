@@ -111,7 +111,7 @@ export default function Signup() {
                 {errors.password?.type === 'required' && <p className='text-red-700' role="alert">Password is required</p>}
             </div>
             <div className="mt-4 mb-2 sm:mb-4">
-                {resError && resError.errors.map(err => (<Error message={err.message} />))}
+                {resError && resError.errors.map(err => (<Error message={"Email is already registered"} />))}
                 {success && <Success message={success} />}
                 <button type="submit" className="bg-white inline-flex justify-center text-green-500 w-full h-12 px-4 py-2 border border-green-500 rounded-none">
                     Signup

@@ -1,28 +1,48 @@
 import Image from 'next/image';
 
-const HeroSection = () => {
+export default function AboutMe() {
     return (
-        <section className="pt-24 md:mt-0 md:h-screen flex flex-col md:text-left md:flex-row md:justify-between md:items-center lg:px-48 md:px-12 px-4 bg-secondary">
+          <div className="lg:bg-[linear-gradient(90deg,_white_70%,_pink_70%)] px-4 py-24">
+                <div className="mx-auto mt-20 px-4 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+                    <div className="flex flex-col items-center justify-between lg:flex-row">
+                        <div className="lg:max-w-lg lg:pr-5">
+                            <div className="max-w-xl">
+                                <h2 className="mb-6 max-w-lg text-3xl leading-snug tracking-tight text-blue-600 sm:text-5xl sm:leading-snug">
+                                    <span className="my-1 inline-block font-serif font-bold text-blue-600">Learning model</span>
+                                    of the future
+                                </h2>
+                                <p className="text-base text-gray-700">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque it.</p>
+                                <div className="mt-8 sm:flex space-y-3 sm:space-y-0 sm:space-x-3">
+                                    <div className="relative overflow-hidden rounded-xl border-4 border-blue-600 bg-white shadow">
+                                        <div className="py-10 px-6">
+                                            <div className="flex items-center">
+                                                <h3 className="relative ml-2 inline-block text-4xl font-bold leading-none">328</h3>
+                                                <span className="ml-3 text-base font-medium capitalize">Great Achievements</span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between bg-gray-100 py-16 px-4">
-            {/* Description */}
-            <div className="max-w-md text-center md:text-left">
-                <h1 className="text-4xl font-bold mb-4">Justine Gichana</h1>
-                <p className="text-lg font-medium mb-4">
-                    Hi, I'm a web developer based in [your location]. I specialize in building beautiful and functional websites using modern technologies like React and Next.js.
-                </p>
-                <div className="flex justify-center md:justify-start space-x-4">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-full">View CV</button>
-                    <button className="bg-gray-800 hover:bg-gray-900 text-white font-medium py-2 px-4 rounded-full">Contact Me</button>
+                                    <div className="relative overflow-hidden rounded-xl border-4 border-blue-600 bg-white shadow">
+                                        <div className="py-10 px-6">
+                                            <div className="flex items-center">
+                                                <h3 className="relative ml-2 inline-block text-4xl font-bold leading-none">16</h3>
+                                                <span className="ml-3 text-base font-medium capitalize">Graduations sponsored</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative text-blue-600 lg:ml-32 lg:w-1/2 hidden lg:block">
+                            <div className="border-b-8 border-b-blue-600 max-w-lg mx-auto mb-10">
+                                <img className="w-full h-full object-contain" src="/images/sisa0dVB-OE35qZ9CRvF2.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            {/* Image */}
-            <div className="max-w-md md:ml-12 mt-8 md:mt-0">
-                <Image src="https://justinedev.verixr.com/media/word-design-written-top-colorful-geometric-3d-shapes_2227-1663-1.jpg" alt="Justine Gichana" width={600} height={400} className="rounded-lg" />
-            </div>
-        </div>
-        </section>
+      
     );
 };
 
-export default HeroSection;
+

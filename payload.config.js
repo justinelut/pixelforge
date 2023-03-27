@@ -13,6 +13,7 @@ import Contact from './collections/Contact'
 import Navigation from './collections/Navigation'
 import Page from './collections/Page'
 import Subscriptions from './collections/Subscriptions'
+import path from 'path'
 
 
 dotenv.config();
@@ -22,6 +23,7 @@ export default buildConfig({
 
   admin: {
     user: Account.slug,
+    css: path.resolve(__dirname, './payload.css'),
   },
   collections: [
     Home,

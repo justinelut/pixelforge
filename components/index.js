@@ -17,7 +17,12 @@ import Main from './Blog/Main'
 import PostDetail from './Blog/Post'
 import Contactus from './contact/Contact'
 import Page from './Pages/Page'
-
+import PageAnimations from './animations/PageAnimations'
+import ComponentsAnimations from './animations/ComponentsAnimations'
+import { BeatLoading, HashLoading } from './Loader'
+import EducationSection from './profiles/Education'
+import AboutMe from './profiles/Hero'
+import Skills from './profiles/Skills'
 
 
 export { 
@@ -39,5 +44,12 @@ export {
     Main,
     PostDetail,
     Contactus,
-    Page
+    Page,
+    PageAnimations,
+    ComponentsAnimations,
+    BeatLoading,
+    HashLoading,
+    AboutMe,
+    EducationSection,
+    Skills
  }

@@ -21,7 +21,8 @@ export default function Payment({ plans, name, id }) {
             paymentstatus: "payed",
             status: "Pending",
             type: serviceType,
-        })
+        },
+        )
 
         console.log(results)
     }
