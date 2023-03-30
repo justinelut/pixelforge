@@ -1,3 +1,5 @@
+import { isAdmin } from "../access/isAdmin";
+
 const Payments = {
   slug: 'payments',
   admin: {
@@ -5,13 +7,9 @@ const Payments = {
   },
   access: {
     // Only admins can create
-    create: () => true,
-    // Only admins or editors with site access can read
-    read: () => true,
-    // Only admins can update
-    update: () => true,
-    // Only admins can delete
-    delete: () => true,
+    read: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   fields: [
     {

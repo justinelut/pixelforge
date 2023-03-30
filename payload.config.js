@@ -14,7 +14,7 @@ import Navigation from './collections/Navigation'
 import Page from './collections/Page'
 import Subscriptions from './collections/Subscriptions'
 import path from 'path'
-
+import { DashboardNav, CustomMinimalRoute, CustomDefaultRoute,AfterDashboard } from './components/Admin'
 
 dotenv.config();
 
@@ -24,6 +24,24 @@ export default buildConfig({
   admin: {
     user: Account.slug,
     css: path.resolve(__dirname, './payload.css'),
+    components:{
+      routes: [
+        {
+          path: '/purchased',
+          Component: CustomMinimalRoute,
+        },
+        {
+          path: '/billing',
+          Component: CustomDefaultRoute,
+        },
+      ],
+      beforeDashboard: [
+        AfterDashboard,
+      ],
+      afterNavLinks: [
+        DashboardNav
+      ]
+    }
   },
   collections: [
     Home,
@@ -38,6 +56,6 @@ export default buildConfig({
     Services,
     Category,
     Plans,
-    Account
+    Account,
   ],
 });

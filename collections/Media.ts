@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import { isAdmin } from "../access/isAdmin";
 
 export type MediaType = {
   filename: string
@@ -20,20 +21,22 @@ export type MediaType = {
 }
 
 const Media: CollectionConfig = {
-  slug: 'media',
+  slug: "media",
   access: {
-    read: (): boolean => true, // Everyone can read Media
+    read: isAdmin,
+    update: isAdmin,
+    delete: isAdmin, // Everyone can read Media
   },
   upload: {
-    adminThumbnail: 'card',
+    adminThumbnail: "card",
     imageSizes: [
       {
-        name: 'card',
+        name: "card",
         width: 640,
         height: 480,
       },
       {
-        name: 'feature',
+        name: "feature",
         width: 1024,
         height: 576,
       },
@@ -41,9 +44,9 @@ const Media: CollectionConfig = {
   },
   fields: [
     {
-      name: 'alt',
-      label: 'Alt Text',
-      type: 'text',
+      name: "alt",
+      label: "Alt Text",
+      type: "text",
       required: true,
     },
   ],

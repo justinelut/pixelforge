@@ -18,9 +18,9 @@ const Account = {
   access: {
     create: () => true,
     // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminOrSelf,
+    read: isAdmin,
     // Admins can update all, but any other logged in user can only update themselves
-    update: isAdminOrSelf,
+    update: isAdmin,
     // Only admins can delete
     delete: isAdmin,
   },

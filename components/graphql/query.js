@@ -92,3 +92,25 @@ export const blogPost = gql`query GetPost($slug: String!) {
       }
       }
     }`
+
+export const billing = gql`
+  query GetBilling($userid: String!) {
+    Projects(where: { createdBy: { id: { equals: $userid } } }) {
+      docs {
+        id
+        service
+        price
+        amountpayed
+        plan
+        paymentstatus
+        status
+        type
+        createdBy {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;

@@ -1,7 +1,11 @@
-import { Herosection, Howitworks, Features, Pricing, Featured, Faq, serverClient } from '../components'
+import { Herosection, serverClient, Howitworks, Features, Faq, Featured } from '../components'
 import { useStore } from '../store/store'
 import StoreInitializer from '../store/Storeinitializer'
 import { services, home } from '../components/graphql/query'
+//import dynamic from 'next/dynamic'
+
+//const { } = dynamic(() => import('../components/'))
+
 
 export const dynamic = 'force-dynamic'
 

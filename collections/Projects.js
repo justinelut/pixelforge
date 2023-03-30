@@ -7,7 +7,7 @@ const Projects = {
     useAsTitle: "service",
   },
   access: {
-    read: isAdminOrSelfOthers,
+    read: isAdmin,
     update: isAdmin,
     delete: isAdmin,
   },

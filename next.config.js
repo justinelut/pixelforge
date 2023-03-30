@@ -2,6 +2,7 @@ require('dotenv').config();
 const { sizes } = require('./blocks/Image/sizes');
 
 module.exports = {
+ 
   experimental: {
     appDir: true,
   },

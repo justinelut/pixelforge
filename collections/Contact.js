@@ -1,3 +1,6 @@
+import { isAdmin } from "../access/isAdmin";
+import { isAdminOrSelfOthers } from "../access/isAdminOrSelf";
+
 const Contact = {
     slug: "contact",
     admin: {
@@ -5,14 +8,9 @@ const Contact = {
     },
 
     access: {
-        // Only admins can create
-        create: () => true,
-        // Only admins or editors with site access can read
-        read: () => true,
-        // Only admins can update
-        update: () => true,
-        // Only admins can delete
-        delete: () => true,
+        read: isAdmin,
+        update: isAdmin,
+        delete: isAdmin,
     },
     fields: [
         {
