@@ -1,6 +1,4 @@
 import axios from 'axios'
-import qs from 'qs';
-
 
 export const fetcher = (path) => axios.get(path, {
     headers: {

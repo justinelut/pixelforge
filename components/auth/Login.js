@@ -24,7 +24,7 @@ export default function Login() {
                 setResError('Error', error.message);
             }
         })
-        useStore.setState({ loginToken: results.data.token, firstName: results.data.user.firstName, lastName: results.data.user.lastName })
+        useStore.setState({ loginToken: results.data.token, userid: results.data.user.id, firstName: results.data.user.firstName, lastName: results.data.user.lastName })
     };
     return (
 

@@ -1,7 +1,7 @@
 import { buildConfig } from 'payload/config';
 import dotenv from 'dotenv';
 import Media from './collections/Media';
-import Payments from './collections/Payments'
+import InitiatedPayments from './collections/InitiatePay'
 import Projects from './collections/Projects'
 import Services from './collections/Services'
 import Category from './collections/Category'
@@ -12,9 +12,17 @@ import Blog from './collections/Blog'
 import Contact from './collections/Contact'
 import Navigation from './collections/Navigation'
 import Page from './collections/Page'
+import Payments from './collections/Payments'
 import Subscriptions from './collections/Subscriptions'
+import Messages from './collections/Admin/chat'
 import path from 'path'
-import { DashboardNav, CustomMinimalRoute, CustomDefaultRoute,AfterDashboard } from './components/Admin'
+import { DashboardNav, 
+  CustomMinimalRoute,
+   MyProjects,
+   AfterDashboard,
+   ProjectDescription,
+   RouteProvider
+} from './components/Admin'
 
 dotenv.config();
 
@@ -25,14 +33,22 @@ export default buildConfig({
     user: Account.slug,
     css: path.resolve(__dirname, './payload.css'),
     components:{
+      providers: [RouteProvider],
       routes: [
         {
-          path: '/purchased',
+          path: '/billing',
           Component: CustomMinimalRoute,
+          exact: true
         },
         {
-          path: '/billing',
-          Component: CustomDefaultRoute,
+          path: '/purchased',
+          Component: MyProjects,
+          exact: true
+        },
+        {
+          path: '/purchased/:routeid',
+          Component: ProjectDescription,
+          exact: true
         },
       ],
       beforeDashboard: [
@@ -57,5 +73,7 @@ export default buildConfig({
     Category,
     Plans,
     Account,
+    Messages,
+    InitiatedPayments,
   ],
 });

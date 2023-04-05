@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { DefaultTemplate } from 'payload/components/templates';
-import { Button, Eyebrow } from 'payload/components/elements';
 import { useStepNav } from 'payload/components/hooks';
 import { useConfig, Meta } from 'payload/components/utilities';
 import useSWR from 'swr'
 import { adminfetcher } from '../api/fetchdata'
 import qs from 'qs'
+import ProjectUi from './ui/Projectui'
 
-const CustomDefaultRoute = ({ user, canAccessAdmin }) => {
+const MyProjects = ({ user, canAccessAdmin }) => {
     const query = {
         createdBy: {
             equals: user.id
@@ -23,15 +23,7 @@ const CustomDefaultRoute = ({ user, canAccessAdmin }) => {
     const { routes: { admin: adminRoute } } = useConfig();
     const { setStepNav } = useStepNav();
     const { isLoading, data } = useSWR(`/api/projects${stringifiedQuery}`, adminfetcher)
-
-    if (isLoading) {
-        console.log("loading")
-    } else {
-        console.log(data)
-        console.log(user.id)
-        console.log(stringifiedQuery)
-
-    }
+    
 
     useEffect(() => {
         setStepNav([
@@ -41,6 +33,7 @@ const CustomDefaultRoute = ({ user, canAccessAdmin }) => {
         ]);
     }, [setStepNav]);
 
+
     // If an unauthorized user tries to navigate straight to this page,
     // Boot 'em out
     if (!user || (user && !canAccessAdmin)) {
@@ -49,25 +42,13 @@ const CustomDefaultRoute = ({ user, canAccessAdmin }) => {
         );
     }
 
+   
+
     return (
         <DefaultTemplate>
-            <Meta
-                title="Custom Route with Default Template"
-                description="Building custom routes into Payload is easy."
-                keywords="Custom React Components, Payload, CMS"
-            />
-            <Eyebrow />
-            <h1>Custom Route</h1>
-            <p>Here a route that was added in the Payload config. It uses the Default Template, so the sidebar is rendered.</p>
-            <Button
-                el="link"
-                to={`${adminRoute}`}
-                buttonStyle="secondary"
-            >
-                Go to Dashboard
-            </Button>
+            <ProjectUi admin={adminRoute} data={data} isLoading={isLoading}/>
         </DefaultTemplate>
     );
 };
 
-export default CustomDefaultRoute;
+export default MyProjects;

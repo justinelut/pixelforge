@@ -18,6 +18,5 @@ const authLink = setContext((_) => {
 
 export const serverClient = new ApolloClient({
     link: authLink.concat(httpLink),
-    uri: 'https://justinedev.verixr.com/api/graphql',
     cache: new InMemoryCache(),
 });

@@ -25,7 +25,7 @@ const Media: CollectionConfig = {
   access: {
     read: isAdmin,
     update: isAdmin,
-    delete: isAdmin, // Everyone can read Media
+    delete: isAdmin,
   },
   upload: {
     adminThumbnail: "card",

@@ -1,5 +1,7 @@
 import DashboardNav from "./dashboardNav"
-import CustomDefaultRoute from "./customdefault"
+import MyProjects from "./MyProjects"
 import CustomMinimalRoute from "./customminimal"
 import AfterDashboard from "./Afterdashboard"
-export { DashboardNav, CustomMinimalRoute, CustomDefaultRoute, AfterDashboard }
+import ProjectDescription from './ProjectDescription'
+import RouteProvider from './RouteProvider'
+export { DashboardNav, CustomMinimalRoute, MyProjects, AfterDashboard, ProjectDescription, RouteProvider }

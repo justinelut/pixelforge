@@ -1,44 +1,57 @@
 import React from 'react';
-import { NavLink, BrowserRouter } from 'react-router-dom';
-
-
-// In your projects, you can import as follows:
+import useSWR from 'swr'
+import { adminfetcher } from '../api/fetchdata'
 import { Chevron } from 'payload/components';
 import { useConfig } from 'payload/components/utilities';
+import qs from 'qs'
 
 
 const baseClass = 'after-nav-links';
 
-const AfterNavLinks = () => {
-    const { routes: { admin: adminRoute } } = useConfig();
+const Afteras = ({user}) => {
+    const {routes: { admin: adminRoute } } = useConfig();
+
+    // const query = {
+    //     id: {
+    //         equals: user.id
+    //     }
+    // }
+
+    // const stringifiedQuery = qs.stringify({
+    //     where: query
+    // }, { addQueryPrefix: true })
+
+
+    // const { isLoading, data } = useSWR(`/api/account${stringifiedQuery}`, adminfetcher)
+    user && console.log(user)
+   
 
     return (
         <div className={baseClass}>
-            <span className="nav__label">Admin</span>
+            {/* {isLoading ? "Loading" : console.log(data)} */}
+            <span className="nav__label">Pixel Labs</span>
             <nav>
-                <BrowserRouter>
-                <NavLink
+
+                <a
                     className="nav__link"
                     activeClassName="active"
-                    to={`${adminRoute}/purchased`}
-                    exact
+                    href={`${adminRoute}/purchased`}
                 >
                     <Chevron />
                     Projects
-                </NavLink>
-                <NavLink
+                </a>
+                <a
                     className="nav__link"
                     activeClassName="active"
-                    to={`${adminRoute}/billing`}
-                    exact
+                    href={`${adminRoute}/billing`}
                 >
                     <Chevron />
                     Billing
-                </NavLink>
-                </BrowserRouter>
+                </a>
+
             </nav>
         </div>
     );
 };
 
-export default AfterNavLinks;
+export default Afteras;

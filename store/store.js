@@ -6,12 +6,16 @@ const Store = () => (
         services: '',
         home: '',
         SingleService: '',
+        userid: '',
         firstName: '',
         lastName: '',
         loginToken: '',
         purchasedService: '',
         planType: '',
         serviceType: '',
+        initiatepayments:'',
+        resetConfirm: '',
+        setMpesaInitializer: (initiaterResults) => set((state) => ({ initiatepayments: initiaterResults })),
     }
 )
 export const useStore = create(
