@@ -58,7 +58,7 @@ export default function Featured() {
 
             <div className="px-4 py-10 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
                 <div className="hero-headline flex flex-col items-center justify-center text-center">
-                    <h1 className=" font-bold text-3xl text-gray-900 mb-3">Stunning designs & royalty free projects</h1>
+                    <h1 className=" font-bold text-3xl text-gray-900 mb-3">Stunning designs & awesome projects</h1>
                     <p className=" font-base text-base text-gray-600">high quality projects and designs to make your business stand out.</p>
                 </div>
 

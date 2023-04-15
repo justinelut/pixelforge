@@ -229,15 +229,23 @@ export const portfolio = gql`
         
         myphoto{
          url
+         width
+         height
         }
         featured{
           url
+          width
+          height
           sizes{
             feature{
               url
+              width
+              height
             }
             card{
               url
+              width
+              height
             }
           }
         }
@@ -246,6 +254,8 @@ export const portfolio = gql`
             sizes{
               profile{
                 url
+                width
+                height
               }
             }
           }

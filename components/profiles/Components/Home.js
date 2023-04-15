@@ -33,7 +33,7 @@ const Home = ({featured, iam, resume}) => {
         </div>
       </div>
       <div className=' w-full flex justify-center'>
-        <Image src={featured && featured.sizes.card.url} className="w-full md:w-[300px]" />
+        <Image src={featured && featured.sizes.card.url} width={featured.sizes.card.width} height={featured.sizes.card.height} className="w-full md:w-[300px]" />
       </div>
       <div className="my-10">
         {/* contents below */}
