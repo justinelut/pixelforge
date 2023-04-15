@@ -14,6 +14,7 @@ module.exports = {
       "localhost",
       "pixelabs.verixr.com",
       "justinedev.verixr.com",
+      "verixr.com",
       "via.placeholder.com",
       "images.unsplash.com"
     ],
