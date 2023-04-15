@@ -9,7 +9,7 @@ const AboutMe = (params) => {
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
           <div className="max-h-96 md:h-screen">
-            <Image className="w-screen h-screen object-cover object-top" src={params && params.myphoto.url} width={params.myphoto.width} height={params.myphoto.height}/>
+            <Image className="w-screen h-screen object-cover object-top" src={params && params.myphoto.url} width={params && params.myphoto.width} height={params && params.myphoto.height}/>
           </div>
           <div className="flex bg-gray-100 p-10">
             <div className="mb-auto mt-auto max-w-lg">

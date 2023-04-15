@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
-import './../assets'
-import { skill } from './../assets'
+import '../assets'
+import { skill } from '../assets'
 import './../Constants'
 import { AppText, skillsList, workDetail } from './../Constants'
 import Image from 'next/image'
@@ -11,7 +11,7 @@ const Skills = (params) => {
   return (
     <div className='mt-10' id="skills">
       <div className='flex flex-row justify-center items-center'>
-        <Image src={skill} className="w-[70px] hover:animate-bounce " />
+        {/* <Image src={skill} className="w-[70px] hover:animate-bounce " /> */}
         <h1 className='text-[40px] font-bold'>{AppText.Skills}<span className='text-purple-600'>{AppText.Experties}</span></h1>
       </div>
       <div className='flex flex-col md:flex-row  justify-evenly px-8 md:px-0 mt-8 '>
