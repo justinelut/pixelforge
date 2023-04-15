@@ -72,7 +72,6 @@ const Account = {
       name: 'aboutme',
       type: 'textarea',
       label: 'About Me',
-      required: true,
       admin: {
         position: 'sidebar',
       }

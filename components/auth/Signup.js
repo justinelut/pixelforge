@@ -17,7 +17,7 @@ export default function Signup() {
             firstName: data.firstname,
             lastName: data.lastname,
             email: data.email,
-            password: data.password
+            password: data.password,
         }).catch((error) => {
             if (error.response) {
                 setResError(error.response.data);
