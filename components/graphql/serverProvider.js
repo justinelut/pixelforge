@@ -3,7 +3,7 @@ import { ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-    uri: process.env.PAYLOAD_API_URL,
+    uri: 'https://justinedev.verixr.com/api/graphql',
 });
 
 
