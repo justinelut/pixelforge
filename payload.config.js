@@ -38,8 +38,8 @@ export default buildConfig({
     css: path.resolve(__dirname, './payload.css'),
     meta: {
       titleSuffix: '- PIXELabs Inc',
-      favicon: '/media/assets/favicon.png',
-      ogImage: '/media/assets/logo.png',
+      favicon: '/assets/favicon.png',
+      ogImage: '/assets/logo.png',
     },
     components: {
       graphics: {
