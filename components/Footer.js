@@ -1,174 +1,104 @@
+"use client"
+
+import Link from 'next/link'
+import useSWR from 'swr'
+import {fetcher} from './api/fetchdata'
+import { useForm } from "react-hook-form";
+import Error from './auth/error'
+import Success from './auth/success'
+import {useState} from 'react'
+import axios from 'axios';
+import { BeatLoading } from './Loader'
+
 export default function Footer(){
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [resError, setResError] = useState()
+    const [success, setSuccess] = useState()   
+
+    const { isLoading, data } = useSWR("/api/navigation", fetcher)
+    const onSubmit = async (data, e) => {
+        e.preventDefault()
+        const results = await axios.post("/api/subscription", { email: data.email}).catch((error) => {
+            if (error.response) {
+                setResError(error.response.data);
+            } else if (error.request) {
+                setResError(error.request);
+            } else {
+                setResError('Error', error.message);
+            }
+        })
+        if (results.data.message) {
+            setSuccess(results.data.message)
+            reset()
+        }
+     };
+
     return (
         <div className="bg-gray-900">
             <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
                 <div className="grid row-gap-10 mb-8 lg:grid-cols-6">
                     <div className="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
+                        {isLoading ? (
+                            <BeatLoading />
+                        ) : (
+                            <>
+                                {data && data.data.docs.map((nav, key)=>(
+
+                                    <div key={key}>
+                                        <p className="font-medium tracking-wide text-gray-300">
+                                            {nav.title}
+                                        </p>
+                                        <ul className="mt-2 space-y-2">
+                                            {
+                                                nav.navigation.map((link, key)=>(
+
+                                                    <li key={key}>
+                                                        <Link
+                                                            href={"/ke/"+link.slug}
+                                                            className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
+                                                        >
+                                                            {link.name}
+                                                        </Link>
+                                                    </li>
+
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+
+                                ))}
+                            </>
+                           
+                        )}
+                      
                         <div>
                             <p className="font-medium tracking-wide text-gray-300">
-                                Category
+                               Community
                             </p>
                             <ul className="mt-2 space-y-2">
                                 <li>
-                                    <a
-                                        href="/"
+                                    <Link
+                                        href="/blog"
                                         className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
                                     >
-                                        News
-                                    </a>
+                                        Blog
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
-                                        href="/"
+                                    <Link
+                                        href="/portfolio"
                                         className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
                                     >
-                                        World
-                                    </a>
+                                        Profiles
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a
-                                        href="/"
+                                    <Link
+                                        href="/contact"
                                         className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
                                     >
-                                        Games
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        References
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p className="font-medium tracking-wide text-gray-300">Apples</p>
-                            <ul className="mt-2 space-y-2">
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Web
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        eCommerce
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Business
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Entertainment
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Portfolio
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p className="font-medium tracking-wide text-gray-300">Cherry</p>
-                            <ul className="mt-2 space-y-2">
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Media
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Brochure
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Nonprofit
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Educational
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Projects
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p className="font-medium tracking-wide text-gray-300">
-                                Business
-                            </p>
-                            <ul className="mt-2 space-y-2">
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Infopreneur
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Personal
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Wiki
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="/"
-                                        className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
-                                    >
-                                        Forum
-                                    </a>
+                                        Contact us
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -177,12 +107,14 @@ export default function Footer(){
                         <span className="text-base font-medium tracking-wide text-gray-300">
                             Subscribe for updates
                         </span>
-                        <form className="flex flex-col mt-4 md:flex-row">
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-4 md:flex-row">
                             <input
                                 placeholder="Email"
-                                required
+                                id="email"
+                                name="email"
                                 type="text"
                                 className="flex-grow w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none md:mr-2 md:mb-0 focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline"
+                                {...register("email", { required: true })}
                             />
                             <button
                                 type="submit"
@@ -191,15 +123,17 @@ export default function Footer(){
                                 Subscribe
                             </button>
                         </form>
+                        {errors.email?.type === 'required' && <p className='text-red-700' role="alert">Email is required</p>}
+                        {resError && resError.errors.map(err => (<Error message={err.message} />))}
+                        {success && <Success message={success} />}
                         <p className="mt-4 text-sm text-gray-500">
-                            Bacon ipsum dolor amet short ribs pig sausage prosciuto chicken
-                            spare ribs salami.
+                            Stay up-to-date on our latest services and offers. Subscribe now!.
                         </p>
                     </div>
                 </div>
                 <div className="flex flex-col justify-between pt-5 pb-10 border-t border-gray-800 sm:flex-row">
                     <p className="text-sm text-gray-500">
-                        © Copyright 2020 Lorem Inc. All rights reserved.
+                        © Copyright {new Date().getFullYear()} Pixelabs Inc. All rights reserved.
                     </p>
                     <div className="flex items-center mt-4 space-x-4 sm:mt-0">
                         <a

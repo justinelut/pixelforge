@@ -1,26 +1,95 @@
+import { isAdmin } from "../access/isAdmin";
+import { isAdminOrSelfOthers } from "../access/isAdminOrSelf";
+
 const Projects = {
   slug: "projects",
   admin: {
-    useAsTitle: "title",
+    useAsTitle: "service",
   },
   access: {
-    // Only admins can create
-    create: () => false,
-    // Only admins or editors with site access can read
-    read: () => true,
-    // Only admins can update
-    update: () => false,
-    // Only admins can delete
-    delete: () => false,
+    read: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   fields: [
     {
-      name: "title",
-      label: "Title",
+      name: "service",
+      label: "Service",
       type: "text",
       required: true,
     },
+    {
+      name: "price",
+      label: "Price",
+      type: "number",
+      required: true,
+    },
+    {
+      name: "amountpayed",
+      label: "Amount Payed",
+      type: "number",
+      required: true,
+    },
+    {
+      name: "plan",
+      label: "Plan",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "paymentstatus",
+      label: "Payment Status",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "status",
+      label: "Status",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "iscomplete",
+      label: "Is Complete",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "type",
+      label: "Type",
+      type: "text",
+      required: true,
+    },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'account',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: data => Boolean(data?.createdBy)
+      },
+
+    }
+
   ],
+  hooks: {
+    beforeChange: [
+      ({ req, operation, data }) => {
+        if (operation === 'create') {
+          if (req.user) {
+            data.createdBy = req.user.id;
+            return data;
+          }
+        }
+      },
+    ],
+  },
 };
+
+
 
 export default Projects;

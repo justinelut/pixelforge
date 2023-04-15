@@ -1,3 +1,5 @@
+import { isAdmin } from "../access/isAdmin";
+
 const Plans = {
   slug: "plans",
   admin: {
@@ -6,13 +8,13 @@ const Plans = {
   
   access: {
     // Only admins can create
-    create: () => true,
+    create: isAdmin,
     // Only admins or editors with site access can read
-    read: () => true,
+    read: isAdmin,
     // Only admins can update
-    update: () => true,
+    update: isAdmin,
     // Only admins can delete
-    delete: () => true,
+    delete: isAdmin,
   },
   fields: [
     {

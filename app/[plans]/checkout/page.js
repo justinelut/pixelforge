@@ -4,15 +4,25 @@ import StoreInitializer from '../../../store/Storeinitializer'
 import { SingleService } from '../../../components/graphql/query'
 import { serverClient } from '../../../components'
 
+
 export default async function Payment(params) {
-  console.log(params.searchParams)
-  const { data } = await serverClient.query({ query: SingleService, variables: { slug: params.searchParams.s } })
+  const plantype = params.searchParams.p
+  const servicetype = params.searchParams.s
+
+  const { data } = await serverClient.query({
+    query: SingleService, context: {
+      fetchOptions: {
+        next: { revalidate: 0 },
+      },
+    },
+    variables: { slug: params.searchParams.s }
+  })
 
 
-  useStore.setState({ SingleService: data })
+  useStore.setState({ purchasedService: data, planType: plantype, serviceType: servicetype })
   return (
     <div>
-      <StoreInitializer SingleService={data} />
+      <StoreInitializer purchasedService={data} planType={plantype} serviceType={servicetype} />
       <Checkout data={data} />
     </div>
   )

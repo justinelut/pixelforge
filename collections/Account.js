@@ -18,9 +18,9 @@ const Account = {
   access: {
     create: () => true,
     // Admins can read all, but any other logged in user can only read themselves
-    read: isAdminOrSelf,
+    read: isAdmin,
     // Admins can update all, but any other logged in user can only update themselves
-    update: isAdminOrSelf,
+    update: isAdmin,
     // Only admins can delete
     delete: isAdmin,
   },
@@ -38,6 +38,11 @@ const Account = {
           type: "text",
           required: true,
         },
+        {
+          name: 'profilephoto', // required
+          type: 'upload', // required
+          relationTo: 'media', // required
+        },
       ],
     },
     {
@@ -46,7 +51,7 @@ const Account = {
       // saveToJWT: true,
       type: "select",
       hasMany: true,
-      defaultValue: ["editor"],
+      defaultValue: ["user"],
       access: {
         // Only admins can create or update a value for this field
         create: isAdminFieldLevel,
@@ -58,12 +63,47 @@ const Account = {
           value: "admin",
         },
         {
-          label: "Editor",
-          value: "editor",
+          label: "User",
+          value: "user",
         },
       ],
     },
+    {
+      name: 'aboutme',
+      type: 'textarea',
+      label: 'About Me',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      }
+    },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'account',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: data => Boolean(data?.createdBy)
+      },
+
+    }
   ],
+  hooks: {
+    beforeChange: [
+      ({ req, operation, data }) => {
+        if (operation === 'create') {
+          if (req.user) {
+            data.id = req.user.id;
+            return data;
+          }
+        }
+      },
+    ],
+  },
 };
 
 
