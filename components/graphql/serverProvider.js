@@ -1,9 +1,10 @@
 
 import { ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import {gqlapi, papikey} from '../api/fetchdata'
 
 const httpLink = createHttpLink({
-    uri: 'https://justinedev.verixr.com/api/graphql',
+    uri: gqlapi,
 });
 
 
@@ -11,7 +12,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            authorization: "account API-Key 24d76c42-cfa8-431f-bda7-6a8773e30880",
+            authorization: `account API-Key ${papikey}`,
         }
     }
 });
