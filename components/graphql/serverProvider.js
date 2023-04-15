@@ -11,7 +11,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            authorization: `account API-Key ${process.env.PAYLOAD_API_KEY}`,
+            authorization: "account API-Key 24d76c42-cfa8-431f-bda7-6a8773e30880",
         }
     }
 });
