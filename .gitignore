@@ -3,5 +3,8 @@ node_modules
 .env
 out
 build
+media
+components/api/fetchdata.js
+components/graphql/serverProvider.js
 dist
 yarn-error.log
