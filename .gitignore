@@ -4,7 +4,7 @@ node_modules
 out
 build
 media
-components/api/fetchdata.js
-components/graphql/serverProvider.js
+/components/api/fetchdata.js
+/components/graphql/serverProvider.js
 dist
 yarn-error.log
