@@ -1,7 +1,18 @@
 import DashboardNav from "./dashboardNav"
 import MyProjects from "./MyProjects"
-import CustomMinimalRoute from "./customminimal"
+import Transactions from "./Transactions"
 import AfterDashboard from "./Afterdashboard"
 import ProjectDescription from './ProjectDescription'
 import RouteProvider from './RouteProvider'
-export { DashboardNav, CustomMinimalRoute, MyProjects, AfterDashboard, ProjectDescription, RouteProvider }
+import Icon from './graphics/favicon'
+import Logo from './graphics/logo'
+export {
+    DashboardNav,
+    Transactions,
+    MyProjects,
+    AfterDashboard,
+    ProjectDescription,
+    RouteProvider,
+    Logo,
+    Icon 
+    }

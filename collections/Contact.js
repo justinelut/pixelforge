@@ -8,6 +8,7 @@ const Contact = {
     },
 
     access: {
+        create: () => true,
         read: isAdmin,
         update: isAdmin,
         delete: isAdmin,

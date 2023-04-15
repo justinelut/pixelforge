@@ -31,6 +31,14 @@ const Home = {
         },
         {
             name: 'image', // required
+            label: "Featured Image",
+            type: 'upload', // required
+            relationTo: 'media', // required
+            required: true,
+        },
+        {
+            name: 'favicon', // required
+            label: "Favicon Icon",
             type: 'upload', // required
             relationTo: 'media', // required
             required: true,

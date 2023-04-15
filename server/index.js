@@ -11,7 +11,7 @@ import express from "express";
 import payload from "payload";
 
 const app = express();
-
+app.use('/media', express.static(path.resolve(__dirname, '../media')));
 dotenv({
   path: path.resolve(__dirname, "../.env"),
 });

@@ -1,39 +1,41 @@
-"use client"
+import { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 
-import { createContext, useState, useEffect } from 'react';
-import { useStore } from "../../store/store";
+export const fetcher = async (path) => {
+    try {
+        const res = await axios.get(path, {
+            // headers: {
+            //     "Authorization": "account API-Key 24d76c42-cfa8-431f-bda7-6a8773e30880"
+            // }
+        });
+        return res.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 
-const AuthContext = createContext();
-
-function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const { loginToken } = useStore()
-
-    console.log(loginToken)
+export const AuthProvider = () => {
+    const [loggedin, setLoggedin] = useState(false);
 
     useEffect(() => {
-        if (loginToken) {
-            setUser({ token: loginToken });
-        }
+        const checkLoggedIn = async () => {
+            try {
+                const data = await fetcher("/api/account/me");
+                setLoggedin(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        checkLoggedIn();
     }, []);
 
-    function login(token) {
-        setUser({ token });
-        localStorage.setItem('logintoken', token);
+    const isLoggedIn = useMemo(() => loggedin !== null && loggedin !== false, [loggedin]);
+    const isNotLoggedIn = useMemo(() => loggedin === null || loggedin === false, [loggedin]);
+
+    if (loggedin.user == null) {
+        return isNotLoggedIn;
+    } else {
+        return isLoggedIn;
     }
-
-    function logout() {
-        setUser(null);
-        localStorage.removeItem('logintoken');
-    }
-
-    const value = {
-        user,
-        login,
-        logout,
-    };
-
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-export { AuthProvider, AuthContext };
+   
+};

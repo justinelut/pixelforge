@@ -4,6 +4,7 @@ import { adminfetcher } from '../api/fetchdata'
 import { Chevron } from 'payload/components';
 import { useConfig } from 'payload/components/utilities';
 import qs from 'qs'
+import {NavLink} from 'react-router-dom'
 
 
 const baseClass = 'after-nav-links';
@@ -32,22 +33,22 @@ const Afteras = ({user}) => {
             <span className="nav__label">Pixel Labs</span>
             <nav>
 
-                <a
+                <NavLink
                     className="nav__link"
                     activeClassName="active"
-                    href={`${adminRoute}/purchased`}
+                    to={`${adminRoute}/purchased`}
                 >
                     <Chevron />
                     Projects
-                </a>
-                <a
+                </NavLink>
+                <NavLink
                     className="nav__link"
                     activeClassName="active"
-                    href={`${adminRoute}/billing`}
+                    to={`${adminRoute}/billing`}
                 >
                     <Chevron />
-                    Billing
-                </a>
+                    Transactions
+                </NavLink>
 
             </nav>
         </div>

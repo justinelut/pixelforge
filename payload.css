@@ -5,3 +5,11 @@
 #action-save {
     background-color: coral;
 }
+
+button[type="submit"] {
+    background-color: coral;
+}
+
+#confirm-delete {
+background-color: coral;
+}

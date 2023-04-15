@@ -1,127 +1,56 @@
 import React from 'react';
 
-
-const baseClass = 'after-dashboard';
-
-const AfterDashboard = () => {
+function Dashboard() {
     return (
-            <div className="px-4 py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-                <div className="grid gap-8 row-gap-5 lg:grid-cols-3">
-                    <div className="relative p-px overflow-hidden transition duration-300 transform border rounded shadow-sm hover:scale-105 group hover:shadow-xl">
-                        <div className="absolute bottom-0 left-0 w-full h-1 duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                        <div className="absolute bottom-0 left-0 w-1 h-full duration-300 origin-bottom transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                        <div className="absolute top-0 left-0 w-full h-1 duration-300 origin-right transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                        <div className="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                        <div className="relative p-5 bg-white rounded-sm">
-                            <div className="flex flex-col mb-2 lg:items-center lg:flex-row">
-                                <div className="flex items-center justify-center w-10 h-10 mb-4 mr-2 rounded-full bg-indigo-50 lg:mb-0">
-                                    <svg
-                                        className="w-8 h-8 text-deep-purple-accent-400"
-                                        stroke="currentColor"
-                                        viewBox="0 0 52 52"
-                                    >
-                                        <polygon
-                                            strokeWidth="3"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            fill="none"
-                                            points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                        />
-                                    </svg>
-                                </div>
-                                <h6 className="font-semibold leading-5">The quick, brown fox</h6>
-                            </div>
-                            <p className="mb-2 text-sm text-gray-900">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque rem aperiam.
-                            </p>
-                            <a
-                                href="/"
-                                aria-label=""
-                                className="inline-flex items-center text-sm font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                            >
-                                Learn more
-                            </a>
+        <section className="relative pb-20 overflow-hidden">
+            <div className="relative container px-4 mx-auto">
+                <div className="max-w-xl xl:max-w-4xl">
+                    <h1 className="font-heading text-5xl xs:text-6xl md:text-8xl xl:text-10xl font-bold text-gray-900 mb-8 sm:mb-14">
+                        <span>A content creation platform</span>
+                        <span className="font-serif italic"> PixeLAbs Inc</span>
+                    </h1>
+                    <div className="md:flex mb-14 max-w-xs sm:max-w-sm md:max-w-none">
+                        <div className="mb-6 md:mb-0 md:mr-8 pt-3">
+                            <svg width="84" height="10" viewbox="0 0 84 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 4.25C0.585786 4.25 0.25 4.58579 0.25 5C0.25 5.41421 0.585786 5.75 1 5.75L1 4.25ZM84 5.00001L76.5 0.669879L76.5 9.33013L84 5.00001ZM1 5.75L77.25 5.75001L77.25 4.25001L1 4.25L1 5.75Z" fill="#1E254C"></path>
+                            </svg>
+                        </div>
+                        <div className="max-w-md">
+                            <p className="md:text-xl text-gray-900 font-semibold">We help you push&apos; Your business to&nbsp;the limit of&apos; the modern world</p>
                         </div>
                     </div>
-                    <div className="relative p-px overflow-hidden transition duration-300 transform border rounded shadow-sm hover:scale-105 group hover:shadow-xl">
-                        <div className="absolute bottom-0 left-0 w-full h-1 duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                        <div className="absolute bottom-0 left-0 w-1 h-full duration-300 origin-bottom transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                        <div className="absolute top-0 left-0 w-full h-1 duration-300 origin-right transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                        <div className="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                        <div className="relative p-5 bg-white rounded-sm">
-                            <div className="flex flex-col mb-2 lg:items-center lg:flex-row">
-                                <div className="flex items-center justify-center w-10 h-10 mb-4 mr-2 rounded-full bg-indigo-50 lg:mb-0">
-                                    <svg
-                                        className="w-8 h-8 text-deep-purple-accent-400"
-                                        stroke="currentColor"
-                                        viewBox="0 0 52 52"
-                                    >
-                                        <polygon
-                                            strokeWidth="3"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            fill="none"
-                                            points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                        />
-                                    </svg>
-                                </div>
-                                <h6 className="font-semibold leading-5">Smooth as an android</h6>
-                            </div>
-                            <p className="mb-2 text-sm text-gray-900">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque rem aperiam.
+                </div>
+                <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+                    <div class="grid grid-cols-2 row-gap-8 md:grid-cols-4">
+                        <div class="text-center md:border-r">
+                            <h6 class="text-4xl font-bold lg:text-5xl xl:text-6xl">144K</h6>
+                            <p class="text-sm font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+                                Downloads
                             </p>
-                            <a
-                                href="/"
-                                aria-label=""
-                                className="inline-flex items-center text-sm font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                            >
-                                Learn more
-                            </a>
+                        </div>
+                        <div class="text-center md:border-r">
+                            <h6 class="text-4xl font-bold lg:text-5xl xl:text-6xl">12.9K</h6>
+                            <p class="text-sm font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+                                Subscribers
+                            </p>
+                        </div>
+                        <div class="text-center md:border-r">
+                            <h6 class="text-4xl font-bold lg:text-5xl xl:text-6xl">48.3K</h6>
+                            <p class="text-sm font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+                                Users
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <h6 class="text-4xl font-bold lg:text-5xl xl:text-6xl">24.5K</h6>
+                            <p class="text-sm font-medium tracking-widest text-gray-800 uppercase lg:text-base">
+                                Cookies
+                            </p>
                         </div>
                     </div>
-                    <div className="relative p-px overflow-hidden transition duration-300 transform border rounded shadow-sm hover:scale-105 group hover:shadow-xl">
-                        <div className="absolute bottom-0 left-0 w-full h-1 duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                        <div className="absolute bottom-0 left-0 w-1 h-full duration-300 origin-bottom transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                        <div className="absolute top-0 left-0 w-full h-1 duration-300 origin-right transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                        <div className="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                        <div className="relative p-5 bg-white rounded-sm">
-                            <div className="flex flex-col mb-2 lg:items-center lg:flex-row">
-                                <div className="flex items-center justify-center w-10 h-10 mb-4 mr-2 rounded-full bg-indigo-50 lg:mb-0">
-                                    <svg
-                                        className="w-8 h-8 text-deep-purple-accent-400"
-                                        stroke="currentColor"
-                                        viewBox="0 0 52 52"
-                                    >
-                                        <polygon
-                                            strokeWidth="3"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            fill="none"
-                                            points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                        />
-                                    </svg>
-                                </div>
-                                <h6 className="font-semibold leading-5">This is about justice</h6>
-                            </div>
-                            <p className="mb-2 text-sm text-gray-900">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque rem aperiam.
-                            </p>
-                            <a
-                                href="/"
-                                aria-label=""
-                                className="inline-flex items-center text-sm font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                            >
-                                Learn more
-                            </a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+        </section>
     );
-};
+}
 
-export default AfterDashboard;
+export default Dashboard

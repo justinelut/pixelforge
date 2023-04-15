@@ -19,4 +19,8 @@ export const adminfetcher = (path) => axios.get(path, {
     }
 }).then(res => res)
 
+export const getdata = (path) => axios.get(path, {
+   
+}).then(res => res)
+
 

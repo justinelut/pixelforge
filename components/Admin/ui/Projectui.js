@@ -1,67 +1,89 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { currency } from '../../../utilities/Currency'
+import { adminfetcher } from '../../api/fetchdata'
+import qs from 'qs'
+import { FaCheckCircle, FaWrench, FaCog, FaExclamationCircle } from 'react-icons/fa';
+import { IoIosChatbubbles } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+import useSWR from 'swr'
 
 
-export default function ProjectUi({ admin, data, isLoading }) {
+
+export default function ProductComponent(props) {
+    if (!props.user || (props.user && !props.canAccessAdmin)) {
+        return (
+            <Redirect to={`${props.admin}/unauthorized`} />
+        );
+    }
+
+    const query = {
+        createdBy: {
+            equals: props.user && props.user.id
+        }
+    }
+
+    const stringifiedQuery = qs.stringify({
+        limit: null,
+        where: query
+    }, { addQueryPrefix: true })
+
+
+
+    const { isLoading, data } = useSWR(`/api/projects${stringifiedQuery}`, adminfetcher)
+
     return (
-       
-        <section className="pt-24 md:mt-0 md:h-screen md:text-left bg-secondary">
-            <div className="px-4 py-24 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-                <div className="grid gap-8 row-gap-5 lg:grid-cols-3">
-                    {
-                        isLoading ? "Loading" : (
+        <>
+            {
+                isLoading ? 'loading' : (
+                    data.data.docs.map(project => (
+                        <div class="relative mx-auto w-full max-w-md overflow-hidden rounded-lg bg-white shadow-md">
+                            <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 rounded-md shadow-md p-6 lg:p-8 xl:p-10">
+                                <div className="flex items-center justify-between mb-4">
+                                    <h2 className="text-2xl md:text-3xl text-white font-bold">{project.service}</h2>
+                                    {project.iscomplete == 'true' ? (
+                                        <FaCheckCircle className="text-4xl md:text-5xl text-green-500" />
+                                    ) : (
+                                        project.status == 'pending' ? (
+                                            <FaExclamationCircle className="text-4xl md:text-5xl text-yellow-500" />
+                                        ) : (
+                                            <FaCog className="text-4xl md:text-5xl text-blue-500" />
+                                        )
+                                    )
+                                    }
+                                </div>
+                                <p className="text-base md:text-lg text-white mb-4">
+                                    Status: <span className="font-medium text-yellow-200">
+                                        {project.iscomplete == 'true' ? (
+                                            "Completed"
+                                        ) : (
+                                            project.status == 'pending' ? (
+                                                'Pending'
+                                            ) : (
+                                                'In progress...'
+                                            )
+                                        )
+                                        }
+                                    </span>
+                                </p>
+                                <p className="text-base md:text-lg text-white mb-8">
+                                    Amount: <span className="font-medium text-yellow-200">{currency.format(project.amountpayed)}</span>
+                                </p>
+                    
+                                <Link to={`${props.admin}/purchased/${project.type}?id=${project.id}`} className="bg-white text-purple-500 py-2 px-4 md:py-3 md:px-6 lg:py-4 lg:px-8 xl:py-5 xl:px-10 rounded-md flex items-center justify-center border-2 border-purple-500 hover:bg-purple-500 hover:text-white">
+                                    <IoIosChatbubbles className="text-xl md:text-2xl mr-2" />
+                                    <span className="text-sm md:text-base lg:text-lg xl:text-xl font-medium">
+                                        Chat
+                                    </span>
+                                </Link>
+                            </div>
+                        </div>
+                    ))
+                )
 
-                            data.data.docs.length == 0 ? ("No Projects yet") : (
-                                data && data.data.docs.map(projects => (
+            }
+        </>
 
-                                    <a href={`${admin}/purchased/${projects.type}?id=${projects.id}`} >
-                                        <div className="relative p-px overflow-hidden transition duration-300 transform border rounded shadow-sm hover:scale-105 group hover:shadow-xl">
-                                            <div className="absolute bottom-0 left-0 w-full h-1 duration-300 origin-left transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                                            <div className="absolute bottom-0 left-0 w-1 h-full duration-300 origin-bottom transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                                            <div className="absolute top-0 left-0 w-full h-1 duration-300 origin-right transform scale-x-0 bg-deep-purple-accent-400 group-hover:scale-x-100" />
-                                            <div className="absolute bottom-0 right-0 w-1 h-full duration-300 origin-top transform scale-y-0 bg-deep-purple-accent-400 group-hover:scale-y-100" />
-                                            <div className="relative p-5 bg-white rounded-sm">
-                                                <div className="flex flex-col mb-2 lg:items-center lg:flex-row">
-                                                    <div className="flex items-center justify-center w-10 h-10 mb-4 mr-2 rounded-full bg-indigo-50 lg:mb-0">
-                                                        <svg
-                                                            className="w-8 h-8 text-deep-purple-accent-400"
-                                                            stroke="currentColor"
-                                                            viewBox="0 0 52 52"
-                                                        >
-                                                            <polygon
-                                                                strokeWidth="3"
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                fill="none"
-                                                                points="29 13 14 29 25 29 23 39 38 23 27 23"
-                                                            />
-                                                        </svg>
-                                                    </div>
-                                                    <h6 className="font-semibold leading-5">{projects.service}</h6>
-                                                </div>
-                                                <p className="mb-2 text-sm text-gray-900">
-                                                    Project Status {projects.status}
-                                                    Amount Payed {projects.amountpayed}
-                                                </p>
-                                                <a
-                                                    href="/"
-                                                    aria-label=""
-                                                    className="inline-flex items-center text-sm font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                                                >
-                                                    Learn more
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </a>
+    );
+}
 
-                                ))
-                            )
 
-                        )
-                    }
-
-                </div>
-            </div>
-        </section>
-      
-    )
-};

@@ -38,6 +38,11 @@ const Account = {
           type: "text",
           required: true,
         },
+        {
+          name: 'profilephoto', // required
+          type: 'upload', // required
+          relationTo: 'media', // required
+        },
       ],
     },
     {
@@ -62,6 +67,15 @@ const Account = {
           value: "user",
         },
       ],
+    },
+    {
+      name: 'aboutme',
+      type: 'textarea',
+      label: 'About Me',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      }
     },
     {
       name: 'createdBy',

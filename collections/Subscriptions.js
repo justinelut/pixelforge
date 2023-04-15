@@ -7,7 +7,7 @@ const Subscription = {
     },
 
     access: {
-        // Only admins can create
+        create: () => true,
         read: isAdmin,
         update: isAdmin,
         delete: isAdmin,

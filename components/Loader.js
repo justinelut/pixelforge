@@ -2,6 +2,7 @@
 import { useState } from "react";
 import BarLoader from "react-spinners/BarLoader";
 import HashLoader from "react-spinners/HashLoader";
+import React from 'react'
 
 
 export const BeatLoading = ({settings}) => {

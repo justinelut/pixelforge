@@ -6,11 +6,12 @@ const httpLink = createHttpLink({
     uri: 'https://justinedev.verixr.com/api/graphql',
 });
 
-const authLink = setContext((_) => {
-  
+
+const authLink = setContext((_, { headers }) => {
     return {
         headers: {
-            "Authorization": "account API-Key 24d76c42-cfa8-431f-bda7-6a8773e30880"
+            ...headers,
+            authorization: "account API-Key 24d76c42-cfa8-431f-bda7-6a8773e30880",
         }
     }
 });
@@ -18,5 +19,5 @@ const authLink = setContext((_) => {
 
 export const serverClient = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
 });

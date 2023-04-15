@@ -1,39 +1,71 @@
-import React,{ useState } from "react";
+"use client"
 
-const usePage = (docs, docsPerPage = 6) => {
+import React, { useState, useEffect } from "react";
+
+function usePagination({ fetchData, pageSize = 10 }) {
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = Math.ceil(docs.length / docsPerPage);
+    const [visibleData, setVisibleData] = useState([]);
+    const [totalPages, setTotalPages] = useState(0);
+    const visiblePages = [];
 
-    const onPageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+    useEffect(() => {
+        const fetchDataAndSetState = async () => {
+            const { data, total } = await fetchData(currentPage, pageSize);
+            setVisibleData(data);
+            setTotalPages(Math.ceil(total / pageSize));
+        };
 
-    const displayedDocs = docs.slice(
-        (currentPage - 1) * docsPerPage,
-        currentPage * docsPerPage
-    );
+        fetchDataAndSetState();
+    }, [currentPage, fetchData, pageSize]);
 
-    const Pagination = () => (
-        <nav className="flex justify-center">
-            <ul className="flex">
-                {[...Array(totalPages).keys()].map((pageNumber) => (
-                    <li key={pageNumber}>
-                        <button
-                            className={`py-2 px-4 rounded-l rounded-r-none focus:outline-none ${pageNumber + 1 === currentPage
-                                    ? "bg-gray-400 text-white"
-                                    : "bg-white text-gray-800 hover:bg-gray-200"
-                                }`}
-                            onClick={() => onPageChange(pageNumber + 1)}
-                        >
-                            {pageNumber + 1}
-                        </button>
-                    </li>
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+            visiblePages.push(
+                <button key={i} disabled>
+                    {i}
+                </button>
+            );
+        } else if (
+            i <= 3 ||
+            i >= totalPages - 2 ||
+            Math.abs(i - currentPage) <= 1
+        ) {
+            visiblePages.push(
+                <button key={i} onClick={() => setCurrentPage(i)}>
+                    {i}
+                </button>
+            );
+        } else if (!visiblePages[visiblePages.length - 1].props.disabled) {
+            visiblePages.push(<span key="ellipsis">...</span>);
+        }
+    }
+
+    return (
+        <>
+            <ul>
+                {visibleData.map((item, index) => (
+                    <li key={index}>{item}</li>
                 ))}
             </ul>
-        </nav>
+            <div>
+                <button onClick={() => setCurrentPage(1)}>First</button>
+                <button
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                >
+                    Prev
+                </button>
+                {visiblePages}
+                <button
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                >
+                    Next
+                </button>
+                <button onClick={() => setCurrentPage(totalPages)}>Last</button>
+            </div>
+        </>
     );
+}
 
-    return { displayedDocs, Pagination };
-};
-
-export default usePage;
+export default usePagination;

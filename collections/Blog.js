@@ -98,8 +98,34 @@ const Blog = {
             admin: {
                 position: 'sidebar',
             }
+        },
+        {
+            name: 'createdBy',
+            type: 'relationship',
+            relationTo: 'account',
+            access: {
+                update: () => false,
+            },
+            admin: {
+                readOnly: true,
+                position: 'sidebar',
+                condition: data => Boolean(data?.createdBy)
+            },
+
         }
-    ]
+    ],
+    hooks: {
+        beforeChange: [
+            ({ req, operation, data }) => {
+                if (operation === 'create') {
+                    if (req.user) {
+                        data.createdBy = req.user.id;
+                        return data;
+                    }
+                }
+            },
+        ],
+    },
 };
 
 export default Blog;

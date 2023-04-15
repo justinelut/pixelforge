@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const SuccessMessage = () => {
     return (
-        <section className="py-28">
+        <section className="py-10">
             <div className="container px-4 mx-auto">
                 <div className="max-w-2xl mx-auto text-center">
                     <span className="inline-block mx-auto mb-6">
@@ -16,7 +16,7 @@ const SuccessMessage = () => {
                     <a className="group relative inline-block h-12 w-full xs:w-60 bg-blueGray-900 rounded-md" href="#">
                         <div className="absolute top-0 left-0 transform -translate-y-1 -translate-x-1 w-full h-full group-hover:translate-y-0 group-hover:translate-x-0 transition duration-300">
                             <div className="flex h-full w-full items-center justify-center bg-green-600 border-2 border-black rounded-md">
-                                <Link to="/admin"><span className="text-base font-black text-black">Go to your dashboard</span></Link>
+                                <Link href="/admin"><span className="text-base font-black text-black">Go to your dashboard</span></Link>
                             </div>
                         </div>
                     </a>

@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { DefaultTemplate } from 'payload/components/templates';
 import { useStepNav } from 'payload/components/hooks';
-import { useConfig, Meta } from 'payload/components/utilities';
+import { useConfig } from 'payload/components/utilities';
 import useSWR from 'swr'
 import { adminfetcher } from '../api/fetchdata'
 import qs from 'qs'
 import ProjectUi from './ui/Projectui'
+import AdminUi from './ui/adminui'
 
 const MyProjects = ({ user, canAccessAdmin }) => {
+    const { setStepNav } = useStepNav();
+    const { routes: { admin: adminRoute } } = useConfig();
+
     const query = {
-        createdBy: {
-            equals: user.id
+        id: {
+            equals: user && user.id
         }
     }
 
@@ -20,33 +24,46 @@ const MyProjects = ({ user, canAccessAdmin }) => {
     }, { addQueryPrefix: true })
 
 
-    const { routes: { admin: adminRoute } } = useConfig();
-    const { setStepNav } = useStepNav();
-    const { isLoading, data } = useSWR(`/api/projects${stringifiedQuery}`, adminfetcher)
-    
+    const { data } = useSWR(`/api/account${stringifiedQuery}`, adminfetcher)
 
     useEffect(() => {
         setStepNav([
             {
-                label: 'Custom Route with Default Template',
+                label: 'My projects',
             },
         ]);
     }, [setStepNav]);
 
 
-    // If an unauthorized user tries to navigate straight to this page,
-    // Boot 'em out
     if (!user || (user && !canAccessAdmin)) {
         return (
             <Redirect to={`${adminRoute}/unauthorized`} />
         );
     }
 
-   
+
+
+
 
     return (
         <DefaultTemplate>
-            <ProjectUi admin={adminRoute} data={data} isLoading={isLoading}/>
+            <div className="px-2 py-10 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-10 lg:px-2 lg:py-10">
+
+                {
+                    data && data.data.docs[0].roles[0] == 'admin' ? (
+                        <div className="grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+                            <AdminUi admin={adminRoute} user={user} userdetails={data} canAccessAdmin={canAccessAdmin} />
+                        </div>
+                    )
+                        :
+                        (
+                            <div className="grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+                                <ProjectUi admin={adminRoute} user={user} userdetails={data} canAccessAdmin={canAccessAdmin} />
+                            </div>
+                        )
+                }
+
+            </div>
         </DefaultTemplate>
     );
 };

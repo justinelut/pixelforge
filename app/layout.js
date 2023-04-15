@@ -4,16 +4,17 @@ import { Navbar, Footer } from '../components'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PageAnimations } from '../components'
-
+import { AnimatePresence } from 'framer-motion'
+import { serverClient } from '../components'
+import { ApolloProvider } from '@apollo/client';
 
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-
-        <PageAnimations>
-        
+      <ApolloProvider client={serverClient}>
+        <AnimatePresence>
+          <PageAnimations>
             <Navbar />
             {children}
             <Footer />
@@ -29,11 +30,9 @@ export default function RootLayout({ children }) {
               pauseOnHover
               theme="light"
             />
-          
-        </PageAnimations>
-
-
-      </body>
+          </PageAnimations>
+        </AnimatePresence>
+      </ApolloProvider>
     </html>
   )
 }

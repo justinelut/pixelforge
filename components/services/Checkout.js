@@ -49,7 +49,7 @@ export default function Checkout() {
                             <hr className="mb-6 border-gray-300" />
                             <div className="flex">
                                 <div className="flex flex-col">
-                                    <div className="text-sm font-semibold text-lg">
+                                    <div className="font-semibold text-lg">
                                         To finish the purchase process, Login or create an account.
                                         <br></br>
                                     </div>
@@ -58,7 +58,7 @@ export default function Checkout() {
                         </div>
 
                         <div className="w-full max-w-xl xl:px-8 xl:w-5/12">
-                            <div className="bg-white rounded shadow-2xl p-7 sm:p-10 lg:mb-10 md:mb-10">
+                            <div className="bg-white  rounded shadow-2xl p-7 sm:p-10">
 
                                 {loginToken && userid ? (<Payment plans={purchase.plans} name={purchase.name} projectid={purchase.id} slug={purchase.slug} />) : (
                                     <>

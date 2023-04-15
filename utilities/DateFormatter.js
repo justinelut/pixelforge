@@ -1,4 +1,16 @@
 
+
+export const FormatDayOnly = (isoDate) => {
+    const date = new Date(isoDate);
+
+    const year = date.getFullYear();
+    const month = date.toLocaleString('default', { month: 'short' });// Note that month indexes start at 0
+    const day = date.getDate();
+    const formattedDateString = `${day} ${month} ${year}`;
+    return formattedDateString;
+}
+
+
 export default function FormatDay(isoDate){
     const date = new Date(isoDate);
 

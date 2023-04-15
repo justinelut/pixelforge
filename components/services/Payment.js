@@ -5,13 +5,18 @@ import { currency } from '../../utilities/Currency'
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
 import ConfirmPayment from './confirmPayment'
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import { AuthProvider } from '../auth/AuthProvider'
+import Info from '../auth/info'
+import MpesaLogo from './Mpesalogo'
 
 export default function Payment({ plans, name, projectid, slug }) {
-    const { planType, serviceType} = useStore()
+    const { planType } = useStore()
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [initiatepayments, setInitiatePayments] = useState()
     const [disabledButton, setDisableButton] = useState(false)
+    const [reloadMessage, setReloadMessage] = useState()
+    const isLoggedIn = AuthProvider();
     const selectedPlan = plans && plans.filter(plan => {
         if (plan.type === planType) {
             return { price: plan.price, type: plan.type }
@@ -21,26 +26,26 @@ export default function Payment({ plans, name, projectid, slug }) {
     const onSubmit = async (data, e) => {
         e.preventDefault()
         setDisableButton(true)
-        const paymentinitiater = await axios.post('/api/initiatedpayments', {
-            amount: selectedPlan[0].price,
-            phonenumber: data.countrycode + data.phonenumber,
-            projectid: projectid
-        })
-        const results = await axios.post('/api/projects', {
-            service: name,
-            price: selectedPlan && selectedPlan[0].price,
-            amountpayed: selectedPlan && selectedPlan[0].price,
-            plan: selectedPlan[0].type,
-            paymentstatus: "payed",
-            status: "Pending",
-            type: serviceType,
-        },
-        )
-        if (paymentinitiater)
-            setInitiatePayments(paymentinitiater)
+        if (isLoggedIn) {
+
+            const paymentinitiater = await axios.post('/api/initiatedpayments', {
+                amount: selectedPlan[0].price,
+                phonenumber: data.countrycode + data.phonenumber,
+                projectid: projectid
+            })
+
+            if (paymentinitiater)
+                setInitiatePayments(paymentinitiater)
+        } else {
+            setReloadMessage("Your session has expired, Please Login again...")
+            setTimeout(() => {
+                useStore.setState({ loginToken: '', userid: '' })
+                window.location.reload();
+            }, 5000)
+        }
     }
 
-    const showConfirm = () =>{
+    const showConfirm = () => {
         setInitiatePayments(true)
     }
 
@@ -50,8 +55,11 @@ export default function Payment({ plans, name, projectid, slug }) {
             {
                 !initiatepayments ? (
                     <>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className="mb-1 sm:mb-2">
+                        <form onSubmit={handleSubmit(onSubmit)}> 
+                            <div className="flex items-center justify-center mb-1 text-3xl font-bold sm:mb-2">
+                                <MpesaLogo />
+                             </div>
+                            <div className="flex items-center justify-center mb-1 text-2xl font-bold sm:mb-2">
                                 Pay with mpesa
                             </div>
                             <div className="mb-1 sm:mb-2">
@@ -118,18 +126,26 @@ export default function Payment({ plans, name, projectid, slug }) {
                                 </button>
                             </div>
                             <div className="mt-4 mb-2 sm:mb-4">
-                                <button onClick={showConfirm} type="button" className="text-white font-bold bg-blue-700 h-12 inline-flex justify-center hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center rounded-none">
-                                    <AiOutlineArrowLeft />
-                                    Already paid ? confirm
+                                <button onClick={showConfirm} className="relative group inline-block w-full sm:w-auto py-4 px-6 text-white font-semibold rounded-md bg-orange-900 overflow-hidden">
+                                    <div className="absolute top-0 right-full w-full h-full bg-gray-900 transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
+                                    <div className="relative flex items-center justify-center">
+                                        <span className="mr-4">Already paid ? confirm</span>
+                                        <span>
+                                            <svg width="8" height="12" viewbox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.83 5.29L2.59 1.05C2.49704 0.956274 2.38644 0.881879 2.26458 0.83111C2.14272 0.780342 2.01202 0.754204 1.88 0.754204C1.74799 0.754204 1.61729 0.780342 1.49543 0.83111C1.37357 0.881879 1.26297 0.956274 1.17 1.05C0.983753 1.23736 0.879211 1.49082 0.879211 1.755C0.879211 2.01919 0.983753 2.27264 1.17 2.46L4.71 6L1.17 9.54C0.983753 9.72736 0.879211 9.98082 0.879211 10.245C0.879211 10.5092 0.983753 10.7626 1.17 10.95C1.26344 11.0427 1.37426 11.116 1.4961 11.1658C1.61794 11.2155 1.7484 11.2408 1.88 11.24C2.01161 11.2408 2.14207 11.2155 2.26391 11.1658C2.38575 11.116 2.49656 11.0427 2.59 10.95L6.83 6.71C6.92373 6.61704 6.99813 6.50644 7.04889 6.38458C7.09966 6.26272 7.1258 6.13201 7.1258 6C7.1258 5.86799 7.09966 5.73728 7.04889 5.61543C6.99813 5.49357 6.92373 5.38297 6.83 5.29Z" fill="#FFF2EE"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
                                 </button>
                             </div>
                         </form>
+                        {reloadMessage && <Info message={reloadMessage} />}
                     </>
                 )
                     :
                     (
                         <>
-                            <ConfirmPayment projectid={projectid} name={name} plans={plans} slug={slug}/>
+                            <ConfirmPayment projectid={projectid} name={name} plans={plans} slug={slug} />
                         </>
                     )
             }

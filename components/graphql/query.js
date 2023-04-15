@@ -85,9 +85,31 @@ export const blogPost = gql`query GetPost($slug: String!) {
       docs {
       updatedAt
       title
-      content 
+      content
+      slug 
+      createdBy{
+        firstName
+        lastName
+        aboutme
+        profilephoto{
+         sizes{
+          profile{
+            width
+            height
+            url
+          }
+        }
+        }
+        email
+        id
+      }
       image{
         url
+        sizes{
+          feature{
+            url
+          }
+        }
       }
       }
       }
@@ -109,6 +131,124 @@ export const billing = gql`
           id
           firstName
           lastName
+        }
+      }
+    }
+  }
+`;
+
+export const profiles = gql`
+   query {
+    Portfolios {
+      docs {
+        myheadline
+        myname
+        slug
+        myaccount{
+          profilephoto{
+            sizes{
+              profile{
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const portfolio = gql`
+    query GetPortfolio($username: String!) {
+    Portfolios(where: { slug: { equals: $username } }){
+      docs {
+        myheadline
+        iam{
+          Skills
+        }
+        resume{
+          url
+        }
+        myname
+        mytitle
+        slug
+        othertitles{
+          title
+          description
+          titleimage{
+            sizes{
+              card{
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+        myskills{
+          myskilltitle
+          myskilldesc
+          date
+          myskillimage{
+            sizes{
+              faviconx64{
+                url
+                width
+                height
+              }
+            }
+          }
+        }
+        myeducation{
+          myschool
+          startdate
+          enddate
+          myschooldesc
+        }
+        myworkexperience{
+          myworktitle
+          startdate
+          enddate
+          myworkexperiencedesc
+        }
+        mycreativeportfolio{
+          myportfoliotype
+          portfolioimage{
+            sizes{
+              card{
+                url
+                width
+                height
+              }
+            }
+          }
+          portfoliotitle
+          portfoliodesc
+          
+        }
+        
+        myphoto{
+         url
+        }
+        featured{
+          url
+          sizes{
+            feature{
+              url
+            }
+            card{
+              url
+            }
+          }
+        }
+        myaccount{
+          profilephoto{
+            sizes{
+              profile{
+                url
+              }
+            }
+          }
         }
       }
     }

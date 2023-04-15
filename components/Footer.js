@@ -11,7 +11,7 @@ import axios from 'axios';
 import { BeatLoading } from './Loader'
 
 export default function Footer(){
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [resError, setResError] = useState()
     const [success, setSuccess] = useState()   
 
@@ -29,9 +29,7 @@ export default function Footer(){
         })
         if (results.data.message) {
             setSuccess(results.data.message)
-            setTimeout(() => {
-                window.location.reload();
-            }, 3000)
+            reset()
         }
      };
 
@@ -88,7 +86,7 @@ export default function Footer(){
                                 </li>
                                 <li>
                                     <Link
-                                        href="/profiles"
+                                        href="/portfolio"
                                         className="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-200"
                                     >
                                         Profiles

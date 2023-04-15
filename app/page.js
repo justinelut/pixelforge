@@ -1,14 +1,41 @@
+//import NextDynamic  from 'next/dynamic'
 import { Herosection, serverClient, Howitworks, Features, Faq, Featured } from '../components'
 import { useStore } from '../store/store'
 import StoreInitializer from '../store/Storeinitializer'
 import { services, home } from '../components/graphql/query'
-//import dynamic from 'next/dynamic'
 
-//const { } = dynamic(() => import('../components/'))
 
+
+//const { Featured } = NextDynamic(() => import('../components'))
+
+
+
+export async function generateMetadata() {
+    const data = await serverClient.query({
+        query: home,
+        fetchPolicy: 'network-only',
+        context: {
+            fetchOptions: {
+                next: { revalidate: 0 },
+            },
+        },
+    })
+
+    const homepage = data && data.data.Homes.docs[0]
+
+    if (homepage) {
+        return {
+            title: homepage.headline,
+            description: homepage.subheadline,
+            openGraph: {
+                title: homepage.headline,
+                image: homepage.image.url
+            },
+        }
+    }
+}
 
 export const dynamic = 'force-dynamic'
-
 
 export default async function Home() {
 
@@ -38,8 +65,8 @@ export default async function Home() {
         <>
             <StoreInitializer services={data} home={Homepage.data} />
             <Herosection />
-            <Howitworks />
             <Featured />
+            <Howitworks />
             <Features />
             <Faq />
         </>

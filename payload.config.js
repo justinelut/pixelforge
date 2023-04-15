@@ -12,16 +12,20 @@ import Blog from './collections/Blog'
 import Contact from './collections/Contact'
 import Navigation from './collections/Navigation'
 import Page from './collections/Page'
+import Portfolio from './collections/Portfolio'
 import Payments from './collections/Payments'
 import Subscriptions from './collections/Subscriptions'
 import Messages from './collections/Admin/chat'
 import path from 'path'
-import { DashboardNav, 
-  CustomMinimalRoute,
-   MyProjects,
-   AfterDashboard,
-   ProjectDescription,
-   RouteProvider
+import {
+  DashboardNav,
+  Transactions,
+  MyProjects,
+  AfterDashboard,
+  ProjectDescription,
+  RouteProvider,
+  Logo,
+  Icon
 } from './components/Admin'
 
 dotenv.config();
@@ -32,12 +36,21 @@ export default buildConfig({
   admin: {
     user: Account.slug,
     css: path.resolve(__dirname, './payload.css'),
-    components:{
+    meta: {
+      titleSuffix: '- PIXELabs Inc',
+      favicon: '/media/assets/favicon.png',
+      ogImage: '/media/assets/logo.png',
+    },
+    components: {
+      graphics: {
+        Logo,
+        Icon,
+      },
       providers: [RouteProvider],
       routes: [
         {
           path: '/billing',
-          Component: CustomMinimalRoute,
+          Component: Transactions,
           exact: true
         },
         {
@@ -60,6 +73,7 @@ export default buildConfig({
     }
   },
   collections: [
+    Portfolio,
     Home,
     Blog,
     Contact,

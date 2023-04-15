@@ -19,7 +19,7 @@ const HeroSection = () => {
                     {home && home.Homes.docs[0].subheadline}{' '}
                 </p>
                 <div className="font-montserrat">
-                    <Link href="/about" className="bg-black px-6 py-4 rounded-lg border-2 border-black border-solid text-white mr-2 mb-2">
+                    <Link href="/about-us" className="bg-black px-6 py-4 rounded-lg border-2 border-black border-solid text-white mr-2 mb-2">
                         About us
                     </Link>
                     <Link href="/contact" className="px-6 py-4 border-2 border-black border-solid rounded-lg">

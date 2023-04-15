@@ -49,6 +49,12 @@ const Projects = {
       required: true,
     },
     {
+      name: "iscomplete",
+      label: "Is Complete",
+      type: "text",
+      required: true,
+    },
+    {
       name: "type",
       label: "Type",
       type: "text",

@@ -15,6 +15,7 @@ const Store = () => (
         serviceType: '',
         initiatepayments:'',
         resetConfirm: '',
+        portfolio: '',
         setMpesaInitializer: (initiaterResults) => set((state) => ({ initiatepayments: initiaterResults })),
     }
 )
